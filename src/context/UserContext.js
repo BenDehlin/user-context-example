@@ -1,11 +1,9 @@
 import React, { useState, createContext, useEffect } from "react"
 import axios from "axios"
-import { useHistory } from "react-router-dom"
 
 export const UserContext = createContext(null)
 
 export const UserProvider = ({ children }) => {
-  const { push } = useHistory()
   const [user, setUser] = useState(() =>
     JSON.parse(localStorage.getItem("user"))
   )
@@ -27,10 +25,7 @@ export const UserProvider = ({ children }) => {
   const logout = () => {
     axios
       .post("/auth/logout")
-      .then(() => {
-        setUser(null)
-        push("/")
-      })
+      .then(() => setUser(null))
       .catch(({ message }) => console.log(message))
   }
   const getUser = () => {

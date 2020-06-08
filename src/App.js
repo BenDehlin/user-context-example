@@ -2,15 +2,14 @@ import React from "react"
 import "./App.css"
 import routes from "./routes"
 import Header from "./components/Header"
-import {  UserProvider } from "./context/UserContext"
+import useAuth from "./hooks/useAuth"
 
 function App() {
+  useAuth()
   return (
     <div>
-      <UserProvider>
-        <Header />
-        {routes}
-      </UserProvider>
+      <Header />
+      {routes}
     </div>
   )
 }
