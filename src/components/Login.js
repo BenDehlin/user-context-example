@@ -1,11 +1,16 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, useEffect } from "react"
 import { UserContext } from "../context/UserContext"
+import { useHistory } from "react-router-dom"
 
 const Login = () => {
-  const { login, register } = useContext(UserContext)
+  const { user, login, register } = useContext(UserContext)
+  const { push } = useHistory()
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  useEffect(() => {
+    user && push("/profile")
+  }, [user, push])
   return (
     <div>
       <input
