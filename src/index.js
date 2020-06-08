@@ -8,11 +8,11 @@ import { UserProvider } from "./context/UserContext"
 
 ReactDOM.render(
   <React.StrictMode>
-    <UserProvider>
-      <Router>
+    <Router>
+      <UserProvider>
         <App />
-      </Router>
-    </UserProvider>
+      </UserProvider>
+    </Router>
   </React.StrictMode>,
   document.getElementById("root")
 )

@@ -7,7 +7,7 @@ import useAuth from "./hooks/useAuth"
 function App() {
   useAuth()
   return (
-    <div>
+    <div className="App">
       <Header />
       {routes}
     </div>
