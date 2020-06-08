@@ -15,17 +15,13 @@ export const UserProvider = ({ children }) => {
   const login = (body) => {
     axios
       .post("/auth/login", body)
-      .then(({ data }) => {
-        setUser(data)
-      })
+      .then(({ data }) => setUser(data))
       .catch(({ message }) => console.log(message))
   }
   const register = (body) => {
     axios
       .post("/auth/register", body)
-      .then(({ data }) => {
-        setUser(data)
-      })
+      .then(({ data }) => setUser(data))
       .catch(({ message }) => console.log(message))
   }
   const logout = () => {
@@ -40,10 +36,7 @@ export const UserProvider = ({ children }) => {
   const getUser = () => {
     axios
       .get("/auth/user")
-      .then(({ data }) => {
-        setUser(data)
-        push("/profile")
-      })
+      .then(({ data }) => setUser(data))
       .catch(({ message }) => console.log(message))
   }
 
