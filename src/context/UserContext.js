@@ -47,9 +47,7 @@ export const UserProvider = ({ children }) => {
 
   const toggleRemember = (value) => {
     setRemember(value)
-    if (!value) {
-      localStorage.clear()
-    }
+    !value && localStorage.clear()
   }
 
   return (

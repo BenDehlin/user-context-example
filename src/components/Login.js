@@ -1,31 +1,34 @@
-import React, { useState, useContext } from "react"
+import React, { useContext } from "react"
 import { UserContext } from "../context/UserContext"
+import useInput from "../hooks/useInput"
 
 const Login = () => {
   const { remember, toggleRemember, login, register } = useContext(UserContext)
-  const [username, setUsername] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [{ username, email, password }, setValues] = useInput({
+    username: "",
+    email: "",
+    password: "",
+  })
   return (
     <div>
       <input
         name="username"
         placeholder="Enter Username"
         value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        onChange={setValues}
       />
       <input
         name="email"
         placeholder="Enter Email"
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={setValues}
       />
       <input
         name="password"
         placeholder="Enter Password"
         type="password"
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={setValues}
       />
       <div>
         <input
