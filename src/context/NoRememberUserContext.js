@@ -7,15 +7,9 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     return JSON.parse(localStorage.getItem("user"))
   })
-  const [remember, setRemember] = useState(() => {
-    return JSON.parse(localStorage.getItem("remember")) || false
-  })
   useEffect(() => {
-    if (remember) {
       localStorage.setItem("user", JSON.stringify(user))
-      localStorage.setItem("remember", JSON.stringify(remember))
-    }
-  }, [user, remember])
+  }, [user])
   const login = (body) => {
     axios
       .post("/auth/login", body)
@@ -33,7 +27,6 @@ export const UserProvider = ({ children }) => {
       .post("/auth/logout")
       .then(() => {
         setUser(null)
-        setRemember(false)
         localStorage.clear()
       })
       .catch(({ message }) => console.log(message))
@@ -45,19 +38,10 @@ export const UserProvider = ({ children }) => {
       .catch(({ message }) => console.log(message))
   }
 
-  const toggleRemember = (value) => {
-    setRemember(value)
-    if (!value) {
-      localStorage.clear()
-    }
-  }
-
   return (
     <UserContext.Provider
       value={{
         user,
-        remember,
-        toggleRemember,
         setUser,
         login,
         register,

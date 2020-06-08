@@ -1,21 +1,10 @@
-import React, { useState, createContext, useEffect } from "react"
+import React, { useState, createContext } from "react"
 import axios from "axios"
 
 export const UserContext = createContext(null)
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(() => {
-    return JSON.parse(localStorage.getItem("user"))
-  })
-  const [remember, setRemember] = useState(() => {
-    return JSON.parse(localStorage.getItem("remember")) || false
-  })
-  useEffect(() => {
-    if (remember) {
-      localStorage.setItem("user", JSON.stringify(user))
-      localStorage.setItem("remember", JSON.stringify(remember))
-    }
-  }, [user, remember])
+  const [user, setUser] = useState(null)
   const login = (body) => {
     axios
       .post("/auth/login", body)
@@ -31,11 +20,7 @@ export const UserProvider = ({ children }) => {
   const logout = () => {
     axios
       .post("/auth/logout")
-      .then(() => {
-        setUser(null)
-        setRemember(false)
-        localStorage.clear()
-      })
+      .then(() => setUser(null))
       .catch(({ message }) => console.log(message))
   }
   const getUser = () => {
@@ -45,19 +30,10 @@ export const UserProvider = ({ children }) => {
       .catch(({ message }) => console.log(message))
   }
 
-  const toggleRemember = (value) => {
-    setRemember(value)
-    if (!value) {
-      localStorage.clear()
-    }
-  }
-
   return (
     <UserContext.Provider
       value={{
         user,
-        remember,
-        toggleRemember,
         setUser,
         login,
         register,
